@@ -1,0 +1,5 @@
+record,kind,department,object_id,snapshot,size_bytes,leased,note
+C900,control,D1,CTL,CTL,0,0,问题批次控制
+O901,object,D1,oX,O,55,0,引用了不存在的快照
+O902,object,D9,oY,O,44,0,部门非法将被隔离
+R901,ref,D1,oX,S999,0,0,悬空快照引用

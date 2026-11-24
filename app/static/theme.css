@@ -52,3 +52,10 @@ body.archive {margin:0;background:var(--bg);color:var(--ink);font:var(--size)/1.
 .retention-item {padding:9px;border:1px solid var(--line);border-radius:3px 12px 3px 3px}
 .retention-item.eligible {color:var(--bg);background:var(--accent)}
 .retention-total {padding-top:8px;color:var(--accent);font-weight:700}
+
+.settle-desk {display:grid;grid-template-areas:"mast mast" "source source" "kpis kpis" "results inspection" "archive archive" "statusbar statusbar";grid-template-columns:1.3fr 1fr;gap:var(--gap);margin:auto;padding:clamp(14px,3vw,42px);max-width:1658px}
+.settle-desk .mast {grid-area:mast} .settle-desk .source {grid-area:source} .settle-desk .kpis {grid-area:kpis}
+.settle-desk .results {grid-area:results} .settle-desk .inspection {grid-area:inspection}
+.settle-desk .archive {grid-area:archive} .settle-desk .statusbar {grid-area:statusbar}
+.settle-desk #settle-detail {margin:0;max-height:320px;overflow:auto;white-space:pre-wrap;overflow-wrap:anywhere;font:.91em/1.5 var(--font-num)}
+@media(max-width:900px){.settle-desk{grid-template-columns:minmax(0,1fr);grid-template-areas:"mast" "source" "kpis" "results" "inspection" "archive" "statusbar"}}

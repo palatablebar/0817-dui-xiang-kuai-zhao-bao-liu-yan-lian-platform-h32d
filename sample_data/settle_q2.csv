@@ -1,0 +1,17 @@
+record,kind,department,object_id,snapshot,size_bytes,leased,note
+C200,control,D2,CTL,CTL,0,0,Q2增量交接控制
+O401,object,D1,o1,O,100,0,上季占用本季退完
+O402,object,D2,o2,O,50,0,上季占用本季退完
+O403,object,D1,o3,O,30,0,上季已退本季重报
+O404,object,D2,o4,O,20,0,上季已退本季重报
+O405,object,D3,o7,O,110,0,新增独立退租对象
+O406,object,D1,o8,O,60,0,上季闭合链成员重报
+O407,object,D2,o9,O,25,0,上季闭合链成员重报
+R501,ref,D1,o1,S1,0,0,本季退完共享链引用
+R502,ref,D2,o2,S1,0,0,本季退完共享链引用
+R503,ref,D1,o3,S1,0,0,本季退完共享链引用
+R504,ref,D2,o4,S1,0,0,本季退完共享链引用
+R505,ref,D1,o8,S3,0,0,历史已结算链重报引用
+R506,ref,D2,o9,S3,0,0,历史已结算链重报引用
+S601,snapshot,D1,S1,S1,90,0,整条链退完本季只结算一次
+S602,snapshot,D2,S3,S3,120,0,历史已结算快照应跳过

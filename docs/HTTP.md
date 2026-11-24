@@ -7,3 +7,19 @@
 `PATCH /api/runs/<id>` 接收 `revision`、`status` 和 `note`。状态使用 `APPROVED` 或 `HELD`。冲突返回 409，客户端读取新版本后重试。
 
 `GET /api/runs/<id>/evidence` 下载内含运行清单、行号隔离、业务证据和复核信息的 JSON。
+
+## 季度退租结算
+
+`POST /api/settlements/preview` 接收同样的 `multipart/form-data`（`sample=q1|q2|dirty`
+或 `file=<CSV>`），返回三部门返还清单、共用保留与三方对账，但不写库。
+
+`POST /api/settlements` 执行一期结算并落库；同来源重跑返回既有期次（幂等）。
+`GET /api/settlements` 列出最近 50 个期次，`GET /api/settlements/<id>` 查询单期。
+
+`PATCH /api/settlements/<id>` 接收 `revision`、`status`、`note`，状态为 `APPROVED`
+或 `HELD`，乐观锁冲突返回 409；已签发期次不可改写。签发时把本期对象与快照固化进
+历史去重表，后续期次重报自动跳过。
+
+阻断批次返回 422，`code=SETTLEMENT_BLOCKED`，`details.reasons` 列出全部阻断原因，
+且不写库。`GET /api/settlements/<id>/evidence` 下载 `settlement-evidence/1` 证据包。
+样例下载：`GET /settlement/examples/<q1|q2|dirty>`，工作台页面在 `/settlement`。

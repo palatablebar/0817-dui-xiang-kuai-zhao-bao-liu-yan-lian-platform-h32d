@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <title>{{ p.name }}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='theme.css') }}">
+  <script type="module" src="{{ url_for('static', filename='settlement.js') }}"></script>
+</head>
+<body class="archive">
+<main class="desk settle-desk" aria-label="settlement">
+  <header class="mast">
+    <p class="role"><a href="/">← 返回保留演练台</a></p>
+    <h1>{{ p.name }}</h1>
+  </header>
+
+  <form class="source" id="settle-source" aria-label="退租来源输入">
+    <label>输入样例
+      <select id="settle-profile">
+        {% for value, label in p.samples %}<option value="{{ value }}">{{ label }}</option>{% endfor %}
+      </select>
+    </label>
+    <label for="settle-file" class="file">上传退租 CSV</label>
+    <input id="settle-file" type="file" accept=".csv,text/csv">
+    <span id="settle-file-name" aria-live="polite"></span>
+    <button type="button" id="settle-preview">预览裁决</button>
+    <button type="submit" class="action">执行结算期次</button>
+  </form>
+
+  <div class="kpis" aria-label="结算统计">
+    <div class="metric"><span>返还容量(字节)</span><strong id="kpi-returned">—</strong></div>
+    <div class="metric"><span>返还条目</span><strong id="kpi-items">—</strong></div>
+    <div class="metric"><span>共用保留</span><strong id="kpi-retained">—</strong></div>
+    <div class="metric"><span>历史跳过</span><strong id="kpi-skipped">—</strong></div>
+  </div>
+
+  <section class="panel results" aria-label="部门返还清单">
+    <div class="panel-head"><h2>三部门返还清单</h2><span id="settle-period"></span></div>
+    <div class="scroll"><table id="settle-departments" aria-label="部门返还清单"></table></div>
+  </section>
+
+  <section class="panel inspection" aria-label="共用保留与阻断原因">
+    <h2>共用保留 / 阻断原因</h2>
+    <pre id="settle-detail">尚未预览</pre>
+  </section>
+
+  <aside class="panel archive" aria-label="结算期次复核">
+    <h2>期次复核</h2>
+    <ul id="settle-history"></ul>
+    <form id="settle-review" hidden>
+      <p id="settle-run-status"></p>
+      <label for="settle-note">复核意见</label>
+      <textarea id="settle-note" minlength="3" maxlength="200" required></textarea>
+      <div class="review-actions">
+        <button name="decision" value="HELD">暂缓</button>
+        <button class="action" name="decision" value="APPROVED">签发</button>
+      </div>
+      <a id="settle-evidence">下载结算证据</a>
+    </form>
+  </aside>
+
+  <footer class="statusbar">
+    <span id="settle-notice" role="status" aria-live="polite">正在读取样例</span>
+    <a href="/settlement/examples/q1">下载样例 CSV</a>
+  </footer>
+</main>
+</body>
+</html>

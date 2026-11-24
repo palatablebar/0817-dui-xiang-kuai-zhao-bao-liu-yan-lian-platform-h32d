@@ -6,7 +6,7 @@ from app.config import MAX_FILE, MAX_ROWS
 from app.intake.schema import HEADER
 
 
-def records(data):
+def records(data, header=HEADER):
     if len(data) > MAX_FILE:
         raise DomainIssue("FILE_TOO_LARGE")
     try:
@@ -18,7 +18,7 @@ def records(data):
     if not text.strip():
         raise DomainIssue("FILE_BLANK")
     reader = csv.reader(io.StringIO(text, newline=""), strict=True)
-    if tuple(next(reader)) != HEADER:
+    if tuple(next(reader)) != header:
         raise DomainIssue("HEADER_MISMATCH")
     count = 0
     for number, row in enumerate(reader, 1):
